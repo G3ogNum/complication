@@ -13,6 +13,9 @@ public class Health : MonoBehaviour
     public float health;
     public float ElementShield;
 
+    public float healthMax = 100f;
+    public float shieldMax = 100f;
+
     [Header("Shield Components")]
     public GameObject shieldEffect;
     public GameObject shieldBrokenEffect;
@@ -315,7 +318,7 @@ public class Health : MonoBehaviour
 
             shieldText.text = ((int)ElementShield).ToString();
 
-            shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / 100f, shieldBar.sizeDelta.y);
+            shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / shieldMax, shieldBar.sizeDelta.y);
         }
         else
         {
@@ -327,7 +330,7 @@ public class Health : MonoBehaviour
 
                 shieldText.text = ((int)ElementShield).ToString();
 
-                shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / 100f, shieldBar.sizeDelta.y);
+                shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / shieldMax, shieldBar.sizeDelta.y);
 
 
                 shieldEffect.gameObject.SetActive(false);
@@ -341,7 +344,7 @@ public class Health : MonoBehaviour
 
             healthText.text = ((int)health).ToString();
 
-            healthBar.sizeDelta = new Vector2(originalHealthBarSize * health / 100f, healthBar.sizeDelta.y);
+            healthBar.sizeDelta = new Vector2(originalHealthBarSize * health / healthMax, healthBar.sizeDelta.y);
 
             StartCoroutine(HurtFlash());
 
@@ -373,9 +376,9 @@ public class Health : MonoBehaviour
         shieldEffect.GetComponent<Animation>().Play("ShieldGrowing01");*/
 
         //cant be see but control by myself
-        ElementShield = 100;
+        ElementShield = shieldMax;
         shieldText.text = ((int)ElementShield).ToString();
-        shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / 100f, shieldBar.sizeDelta.y);
+        shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / shieldMax, shieldBar.sizeDelta.y);
 
         //shield timer remake
         GetComponent<PhotonView>().RPC("RemakeShield", RpcTarget.AllBuffered);
@@ -387,9 +390,9 @@ public class Health : MonoBehaviour
         isFrozen = false;
 
         //cant be see but control by myself
-        health = 100;
+        health = healthMax;
         healthText.text = ((int)health).ToString();
-        healthBar.sizeDelta = new Vector2(originalHealthBarSize * health / 100f, healthBar.sizeDelta.y);
+        healthBar.sizeDelta = new Vector2(originalHealthBarSize * health / healthMax, healthBar.sizeDelta.y);
 
         //cant be see but control by myself
         UpdateHealthUI();
@@ -397,8 +400,8 @@ public class Health : MonoBehaviour
     [PunRPC]
     void RemakeShield()
     {
-        ElementShield = 100;
-        health = 100;
+        ElementShield = shieldMax;
+        health = healthMax;
         ElementShieldColdTime = 0f;
         shieldEffect.gameObject.SetActive(true);
         shieldEffect.GetComponent<Animation>().Play("ShieldGrowing01");
@@ -661,8 +664,24 @@ public class Health : MonoBehaviour
     public void UpdateHealthUI()
     {
         Color splatterAlpha = HurtImage.color;
-        splatterAlpha.a = 0.5f - (health / 200f);
+        splatterAlpha.a = 0.5f - (health / (2 * healthMax));
         HurtImage.color = splatterAlpha;
+    }
+
+    public void UpdateShield()
+    {
+        shieldText.text = ((int)ElementShield).ToString();
+
+        shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / shieldMax, shieldBar.sizeDelta.y);
+
+    }
+    public void UpdateHealth()
+    {
+        healthText.text = ((int)health).ToString();
+
+        healthBar.sizeDelta = new Vector2(originalHealthBarSize * health / healthMax, healthBar.sizeDelta.y);
+
+        UpdateHealthUI();
     }
 
     void ScreenHurtColdDown()
@@ -687,7 +706,7 @@ public class Health : MonoBehaviour
         {
             ElementShieldColdTime -= Time.deltaTime;
         }
-        else if(ElementShield<100f)
+        else if(ElementShield<shieldMax)
         {
             if(ElementShield <= 0)
             {
@@ -698,7 +717,7 @@ public class Health : MonoBehaviour
 
             shieldText.text = ((int)ElementShield).ToString();
 
-            shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / 100f, shieldBar.sizeDelta.y);
+            shieldBar.sizeDelta = new Vector2(originalShieldBarsize * ElementShield / shieldMax, shieldBar.sizeDelta.y);
 
         }
         

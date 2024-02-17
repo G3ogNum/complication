@@ -6,6 +6,7 @@ using TMPro;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.UI;
 using UnityEngine.Animations.Rigging;
+using objectPoolController;
 
 public class Weapon : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class Weapon : MonoBehaviour
     public int mag = 5;
     public int ammo = 30;
     public int magAmmo = 30;
+
+    [Header("Grenade")]
+    public int grenadeNum = 999;
+    public GameObject grenade;
+    public Transform firePoint;
 
     [Header("UI")]
     public TextMeshProUGUI magText;
@@ -98,6 +104,12 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ThrowGrenade();
+        }
+
         if (nextFire > 0)
             nextFire -= Time.deltaTime;
 
@@ -137,6 +149,20 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    void ThrowGrenade()
+    {
+        if (grenadeNum > 0)
+        {
+            
+            grenadeNum--;
+            Vector3 launchAnlge = new Vector3(firePoint.transform.forward.x, firePoint.transform.forward.y, firePoint.transform.forward.z);
+            
+
+            ObjectPoolManager.SpawnObject(grenade, firePoint.position, firePoint.rotation, ObjectPoolManager.PoolType.GameObject)
+            .GetComponent<Rigidbody>().AddForce(launchAnlge*30, ForceMode.Impulse);
+            //Debug.Log(launchAnlge);
+        }
+    }
 
     void Reload()
     {

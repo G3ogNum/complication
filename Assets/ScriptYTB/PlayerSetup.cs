@@ -3,32 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
-
+using UnityEngine.UI;
 public class PlayerSetup : MonoBehaviour
 {
     //public Movement movement;
 
+    [Header("player movement")]
     public PlayerMovement pm;
     public Climbing climbing;
     public Sliding sliding;
     public WallRunning wallRunning;
 
-
+    [Header("player information")]
     public GameObject camera;
     public GameObject StateUI;
-
     public GameObject Character;
-
     public string nickname;
-
     public int battleSide = 0;//T:0,CT:1;
 
+
+    [Header("player score UI")]
     public TextMeshPro nicknameText;
-
-    public Transform TPweaponHolder;
-
     public TextMeshProUGUI Tscore;
     public TextMeshProUGUI CTscore;
+
+
+    [Header("HUD")]
+    public GameObject optionCanvas;
+    public GameObject gameSettingCanvas;
+    public GameObject InventoryBagCanvas;
+
+
+    [Header("other")]
+    public Transform TPweaponHolder;
+
 
     private void Start()
     {
@@ -51,6 +59,14 @@ public class PlayerSetup : MonoBehaviour
         camera.SetActive(true);
         StateUI.SetActive(false);
 
+
+        optionCanvas.SetActive(true);
+        gameSettingCanvas.SetActive(true);
+        InventoryBagCanvas.SetActive(true);
+
+        optionCanvas.SetActive(false);
+        gameSettingCanvas.SetActive(false);
+        InventoryBagCanvas.SetActive(false);
         //TPweaponHolder.gameObject.SetActive(false);
     }
 

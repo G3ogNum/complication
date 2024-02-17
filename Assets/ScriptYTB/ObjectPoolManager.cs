@@ -128,6 +128,16 @@ namespace objectPoolController
 
             if (pool == null)
             {
+                pool = new PooledObjectInfo() { LookupString = goName };
+                ObjectPools.Add(pool);
+                obj.SetActive(false);
+                pool.InactiveObjects.Add(obj);
+                //Find the parent of the empty object
+                GameObject parentObject = SetParentObject(PoolType.GameObject);
+                if (parentObject != null)
+                {
+                    obj.transform.SetParent(parentObject.transform);
+                }
                 Debug.LogWarning("Trying to release an object that is not pooled: " + goName);
             }
             else

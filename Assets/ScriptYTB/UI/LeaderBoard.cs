@@ -68,6 +68,6 @@ public class LeaderBoard : MonoBehaviour
     }
     public void Update()
     {
-        playersHolder.SetActive(Input.GetKey(KeyCode.Tab));
+        playersHolder.SetActive(Input.GetKey(KeyCode.B));
     }
 }

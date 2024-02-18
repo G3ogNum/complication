@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f277c9cbcb572f749a3edf77b06ec65e, type: 3}
+  m_Name: New Talk
+  m_EditorClassIdentifier: 
+  dialoguePieces:
+  - id: Piece01
+    image: {fileID: 0}
+    text: "\u4F60\u597D\u554A\uFF0C\u6B22\u8FCE\u6765\u5230\u706B\u5E76\u63D0\u74E6\u7279\u3002"
+    options:
+    - text: "\u4F60\u4E5F\u597D\u6211\u7684\u670B\u53CB"
+      targetId: 
+      testQuest: 0
+    - text: "\u6709\u4E8B\u5417\uFF1F"
+      targetId: Piece02
+      testQuest: 0
+    - text: 132
+      targetId: Piece02
+      testQuest: 0
+  - id: Piece02
+    image: {fileID: 0}
+    text: "\u5728\u8FD9\u91CC\u4F60\u53EF\u4EE5\u5C06\u70ED\u6B66\u5668\u548C\u5143\u7D20\u53CD\u5E94\u7EC4\u5408\u7528\u4EE5\u5BF9\u6297\u602A\u7269"
+    options: []

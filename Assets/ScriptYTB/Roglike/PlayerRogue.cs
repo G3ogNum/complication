@@ -7,6 +7,7 @@ public class PlayerRogue : MonoBehaviour
 {
     public Transform weaponSlot;
     public InventoryManager InventoryManager;
+    public DialogueUI dialogueUI;
 
     private AttackData_SO characterData;
     private void Start()
